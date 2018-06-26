@@ -9,7 +9,7 @@ app=create_app()
 def framework_error(e):
     # 可预见的自定义异常
     if isinstance(e,APIException):
-        return APIException
+        return e
     # 不可预见的HTTPP异常
     if isinstance(e,HTTPException):
         code=e.code
@@ -18,6 +18,9 @@ def framework_error(e):
         return APIException(code,error_code,msg)
     # 不可预见的非正常异常
     else:
-        return ServerError()
+        if app.config['DEBUG']:
+            raise e
+        else:
+            return ServerError()
 if __name__=='__main__':
     app.run(debug=app.config['DEBUG'],port=80)

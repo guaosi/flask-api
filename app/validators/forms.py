@@ -21,7 +21,8 @@ class UserEmailForm(ClientForm):
     nickname=StringField(validators=[DataRequired(),length(min=2,max=22)])
     def validate_account(self,field):
         if User.query.filter_by(email=field.data).first():
-            raise ValidationError()
+            # 这里的异常的包别导入错误
+            raise ValidationError('邮箱已经存在~')
     def validate_nickname(self,field):
         if User.query.filter_by(nickname=field.data).first():
-            raise ValidationError()
+            raise ValidationError('昵称已经存在~')
