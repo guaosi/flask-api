@@ -2,7 +2,7 @@ from flask import request, json
 from werkzeug.exceptions import HTTPException
 
 
-class APIExpection(HTTPException):
+class APIException(HTTPException):
     code=500
     error_code=999
     msg='Sorry,we make a mistake'
@@ -13,7 +13,7 @@ class APIExpection(HTTPException):
             self.error_code=error_code
         if msg:
             self.msg=msg
-        super(APIExpection,self).__init__(msg,None)
+        super(APIException,self).__init__(msg,None)
     def get_body(self, environ=None):
         data={
             'error_code':self.error_code,

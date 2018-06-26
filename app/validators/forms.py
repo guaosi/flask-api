@@ -1,6 +1,5 @@
-from wtforms import StringField, IntegerField
-from wtforms.validators import DataRequired, length, Email, Regexp, ValidationError
-
+from wtforms import StringField, IntegerField,ValidationError
+from wtforms.validators import DataRequired, length, Email, Regexp
 from app.libs.enums import ClientTypeEnum
 from app.models.user import User
 from app.validators.base import BaseForm as Form
@@ -22,4 +21,7 @@ class UserEmailForm(ClientForm):
     nickname=StringField(validators=[DataRequired(),length(min=2,max=22)])
     def validate_account(self,field):
         if User.query.filter_by(email=field.data).first():
+            raise ValidationError()
+    def validate_nickname(self,field):
+        if User.query.filter_by(nickname=field.data).first():
             raise ValidationError()
