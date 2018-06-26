@@ -29,9 +29,7 @@ class User(Base):
             db.session.add(user)
     @staticmethod
     def verify(account,secret):
-        user = User.query.filter_by(email=account).first()
-        if not user:
-            raise NotFound(msg='user not found')
+        user = User.query.filter_by(email=account).first_or_404()
         if not user.check_password(secret):
             raise AuthFailed()
         return {'uid':user.id}
