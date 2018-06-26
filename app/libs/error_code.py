@@ -15,3 +15,11 @@ class Success(APIException):
     code=201
     msg='ok'
     error_code = 0
+class NotFound(APIException):
+    code=404
+    msg='The Source is not found'
+    error_code = 1001
+class AuthFailed(APIException):
+    code=401
+    msg='authorization failed'
+    error_code = 1005
