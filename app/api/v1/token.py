@@ -1,5 +1,4 @@
 from flask import current_app, jsonify
-
 from app.libs.enums import ClientTypeEnum
 from app.libs.redprint import Redprint
 from app.models.user import User
