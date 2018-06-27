@@ -15,6 +15,9 @@ class Success(APIException):
     code=201
     msg='ok'
     error_code = 0
+class DeleteSuccess(Success):
+    code=202
+    error_code = -1
 class NotFound(APIException):
     code=404
     msg='The Source is not found'
@@ -23,3 +26,7 @@ class AuthFailed(APIException):
     code=401
     msg='authorization failed'
     error_code = 1005
+class Forbidden(APIException):
+    code = 403
+    msg='forbidden,not in scope'
+    error_code = 1004

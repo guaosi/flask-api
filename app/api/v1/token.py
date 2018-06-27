@@ -13,7 +13,7 @@ def get_token():
     }
     identify=promise[form.type.data](form.account.data,form.secret.data)
     expiration=current_app.config['TOKEN_EXPIRE_TIME']
-    token=generate_token(identify['uid'],form.type.data,None,expiration)
+    token=generate_token(identify['uid'],form.type.data,identify['scope'],expiration)
     t={
         'token':token.decode('utf-8')
     }
@@ -22,5 +22,6 @@ def generate_token(uid,ac_type,scope=None,expiration=7200):
     s=Serializer(current_app.config['SECRET_KEY'],expiration)
     return s.dumps({
         'uid':uid,
-        'type':ac_type.value
+        'type':ac_type.value,
+        'scope':scope
     })

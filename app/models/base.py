@@ -21,6 +21,7 @@ class SQLAlchemy(_SQLAlchemy):
 
 class Query(BaseQuery):
     def filter_by(self, **kwargs):
+        # 判断是否有传递了status
         if 'status' not in kwargs.keys():
             kwargs['status'] = 1
         return super(Query, self).filter_by(**kwargs)
