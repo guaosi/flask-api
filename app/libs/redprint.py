@@ -11,5 +11,6 @@ class Redprint:
         if url_prefix is None:
             url_prefix = '/'+self.name
         for rule, f, options in self.mound:
-            endpoint = options.pop("endpoint", f.__name__)
+            # endpoint机制。这里连接符不能用 . 系统不让过
+            endpoint = self.name +'+'+options.pop("endpoint", f.__name__)
             bp.add_url_rule(url_prefix + rule, endpoint, f, **options)
