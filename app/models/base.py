@@ -65,3 +65,16 @@ class Base(db.Model):
         self.status = 0
     def __getitem__(self, item):
         return getattr(self,item)
+
+    def hide(self,*fields):
+        # 去除list中的成员
+        for field in fields:
+            self.field.remove(field)
+        # 返回self，因为使用了列表推导式，需要返回结果
+        return self
+    def append(self,*fields):
+        # 增加list中的成员
+        for field in fields:
+            self.field.append(field)
+        # 返回self，因为使用了列表推导式，需要返回结果
+        return self

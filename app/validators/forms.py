@@ -26,3 +26,7 @@ class UserEmailForm(ClientForm):
     def validate_nickname(self,field):
         if User.query.filter_by(nickname=field.data).first():
             raise ValidationError('昵称已经存在~')
+class BookSearchForm(Form):
+    q=StringField(validators=[DataRequired()])
+class TokenForm(Form):
+    token=StringField(validators=[DataRequired()])
