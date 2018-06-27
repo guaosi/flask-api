@@ -1,3 +1,5 @@
+from flask import jsonify
+
 from app.libs.redprint import Redprint
 from app.libs.token_auth import auth
 from app.models.user import User
@@ -7,4 +9,4 @@ api=Redprint('user')
 @auth.login_required
 def get_user(uid):
     user=User.query.get_or_404(uid)
-    return 'i am user'
+    return jsonify(user)

@@ -11,6 +11,8 @@ class User(Base):
     nickname=Column(String(24),unique=True)
     auth=Column(SmallInteger,default=1)
     _password=Column('password',String(100))
+    def keys(self):
+        return ['id','email','nickname','auth']
 
     @property
     def password(self):
