@@ -11,6 +11,6 @@ with app.app_context():
         user = User()
         user.nickname = 'admin'
         user.password = 'a123654'
-        user.email = 'admin@guaosi.com'
+        user.email = 'guaosi@vip.qq.com'
         user.auth = ScopeTypeEnum.ADMIN
         db.session.add(user)

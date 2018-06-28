@@ -1,3 +1,4 @@
+from flask import request
 from werkzeug.exceptions import HTTPException
 from app import create_app
 from app.libs.error import APIException
@@ -7,20 +8,26 @@ app=create_app()
 # 定义全局异常处理
 @app.errorhandler(Exception)
 def framework_error(e):
-    # 可预见的自定义异常
-    if isinstance(e,APIException):
-        return e
-    # 不可预见的HTTPP异常
-    if isinstance(e,HTTPException):
-        code=e.code
-        msg=e.description
-        error_code=1007
-        return APIException(code,error_code,msg)
-    # 不可预见的非正常异常
-    else:
-        if app.config['DEBUG']:
-            raise e
+    bluename=request.blueprint
+    # 如果是API模块的异常
+    if bluename=='v1':
+        # 可预见的自定义异常
+        if isinstance(e,APIException):
+            return e
+        # 不可预见的HTTPP异常
+        if isinstance(e,HTTPException):
+            code=e.code
+            msg=e.description
+            error_code=1007
+            return APIException(code,error_code,msg)
+        # 不可预见的非正常异常
         else:
-            return ServerError()
+            if app.config['DEBUG']:
+                raise e
+            else:
+                return ServerError()
+    # 如果是web模块的异常
+    elif bluename == 'web':
+        pass
 if __name__=='__main__':
     app.run(debug=app.config['DEBUG'],port=80)
